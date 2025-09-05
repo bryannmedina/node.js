@@ -1,6 +1,9 @@
 const express = require("express");
 const app =  expresss();
 const mysql = require("mysql");
+const cors = require("cors")
+
+app.use(cors());
 
 const db = mysql.createConnection({
     host:"localhost",
@@ -11,12 +14,20 @@ const db = mysql.createConnection({
 
 app.post ("/create",(req,res)=>{
     const nombre = req.body.nombre;
-    const edad = req.body.edad;
+    const edad = req.body.edad; 
     const pais = req.body.pais;
     const cargo = req.body.cargo;
-    const anios = req.body.anios;
+    const anios = req.body.anios;<
 
-    db.query('INSERT INTO empleados(nombre,edad,pais,cargo,anios) VALUESA (?,?,?,?,?)', [nombre,edad,pais,cargo,anios ]);
+    db.query('INSERT INTO empleados(nombre,edad,pais,cargo,anios) VALUES (?,?,?,?,?)', [nombre,edad,pais,cargo,anios ],
+        (err,result)=>{
+            if(err){
+                console-log(arr);
+            }else{
+                res.send("EMpleado registrado con exito!");
+            }
+        }
+    );
 })
 
 app.listen(3001,()=>{
